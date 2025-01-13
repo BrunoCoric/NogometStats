@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 
-STATS_PATH = Path("stats")
+STATS_PATH = Path("../stats")
 ALL_PLAYERS = [
     "Mladi Filip",
     "Kinta",

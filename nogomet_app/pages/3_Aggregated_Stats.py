@@ -2,10 +2,6 @@ import streamlit as st
 import pandas as pd
 import os
 
-# Ensure the stats directory exists
-if not os.path.exists("stats"):
-    os.makedirs("stats")
-
 def parse_player_list(player_str):
     if isinstance(player_str, str):
         return [player.strip() for player in player_str.split(",")]
@@ -26,7 +22,7 @@ def load_all_game_stats(stats_folder):
 
 
 # Aggregate Data
-stats_folder = "stats"
+stats_folder = "../stats"
 all_games = load_all_game_stats(stats_folder)
 
 if all_games is None:

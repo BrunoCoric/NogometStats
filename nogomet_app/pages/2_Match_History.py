@@ -2,10 +2,6 @@ import streamlit as st
 import pandas as pd
 import os
 
-# Ensure the stats directory exists
-if not os.path.exists("stats"):
-    os.makedirs("stats")
-
 
 # Helper function to load game stats
 def load_game_stats(file_path):
@@ -21,7 +17,7 @@ st.title("Game Stats Dashboard")
 st.sidebar.header("Available Games")
 
 # List all CSV files in the stats folder
-stats_folder = "stats"
+stats_folder = "../stats"
 game_files = [file for file in os.listdir(stats_folder) if file.endswith(".csv")]
 
 if not game_files:
