@@ -1,0 +1,66 @@
+import streamlit as st
+import pandas as pd
+import os
+
+# Ensure the stats directory exists
+if not os.path.exists("stats"):
+    os.makedirs("stats")
+
+
+# Helper function to load game stats
+def load_game_stats(file_path):
+    try:
+        return pd.read_csv(file_path)
+    except Exception as e:
+        st.error(f"Error loading file: {e}")
+        return None
+
+
+# Streamlit App
+st.title("Game Stats Dashboard")
+st.sidebar.header("Available Games")
+
+# List all CSV files in the stats folder
+stats_folder = "stats"
+game_files = [file for file in os.listdir(stats_folder) if file.endswith(".csv")]
+
+if not game_files:
+    st.write("No games have been recorded yet. Please add match data first.")
+else:
+    # Display all game files in the sidebar
+    selected_file = st.sidebar.selectbox("Select a game file", game_files)
+
+    if selected_file:
+        st.write(f"### Stats for Game: {selected_file.removesuffix('.csv')}")
+
+        # Load and display game stats
+        file_path = os.path.join(stats_folder, selected_file)
+        game_stats = load_game_stats(file_path)
+
+        if game_stats is not None:
+            st.write("### Team 1")
+            st.write(game_stats["Team 1"].iloc[0])
+            st.write("### Team 2")
+            st.write(game_stats["Team 2"].iloc[0])
+            st.write("### Score")
+            st.write(f"{game_stats['Score 1'].iloc[0]} - {game_stats['Score 2'].iloc[0]}")
+
+            # Additional summary stats (optional)
+            st.write("### Summary Stats")
+            if "Goalscorers" in game_stats.columns:
+                goalscorers = game_stats["Goalscorers"].iloc[0].split(", ")
+                goalscorer_counts = pd.Series(goalscorers).value_counts()
+                st.write("#### Goalscorers Count")
+                st.write(goalscorer_counts)
+
+            if "Assisters" in game_stats.columns:
+                assisters = game_stats["Assisters"].iloc[0].split(", ")
+                assister_counts = pd.Series(assisters).value_counts()
+                st.write("#### Assisters Count")
+                st.write(assister_counts)
+
+            if "Own Goalscorers" in game_stats.columns:
+                own_goals = game_stats["Own Goalscorers"].iloc[0].split(", ")
+                own_goals_counts = pd.Series(own_goals).value_counts()
+                st.write("#### Own Goalscorers Count")
+                st.write(own_goals_counts)
