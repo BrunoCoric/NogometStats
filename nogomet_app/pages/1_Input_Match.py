@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
-from pathlib import Path
+import os
 from datetime import datetime
 
-
-STATS_PATH = Path("../stats")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
+STATS = os.path.join(BASE_DIR, '..', 'stats')
 ALL_PLAYERS = [
     "Mladi Filip",
     "Kinta",

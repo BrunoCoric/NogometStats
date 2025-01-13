@@ -17,7 +17,8 @@ st.title("Game Stats Dashboard")
 st.sidebar.header("Available Games")
 
 # List all CSV files in the stats folder
-stats_folder = "../stats"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
+stats_folder = os.path.join(BASE_DIR, '..', 'stats')
 game_files = [file for file in os.listdir(stats_folder) if file.endswith(".csv")]
 
 if not game_files:

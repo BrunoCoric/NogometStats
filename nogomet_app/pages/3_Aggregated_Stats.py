@@ -22,7 +22,8 @@ def load_all_game_stats(stats_folder):
 
 
 # Aggregate Data
-stats_folder = "../stats"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
+stats_folder = os.path.join(BASE_DIR, '..', 'stats')
 all_games = load_all_game_stats(stats_folder)
 
 if all_games is None:
