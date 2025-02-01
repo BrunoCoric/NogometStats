@@ -1,4 +1,4 @@
 import streamlit as st
-from pages.gdrive_setup import *
+from gdrive_setup import *
 
 st.title("Nogometni termin statistika")
