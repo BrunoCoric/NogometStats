@@ -1,26 +1,16 @@
 import streamlit as st
-from pydrive2.auth import GoogleAuth
+from pydrive2.auth import GoogleAuth, ServiceAccountCredentials
 from pydrive2.drive import GoogleDrive
 import json
 import pandas as pd
 import os
 
+scope = ['https://www.googleapis.com/auth/drive']
+
 creds_json = json.loads(st.secrets["GDRIVE_CREDENTIALS"])
-print(creds_json)
-with open("temp_gdrive_creds.json", "w") as f:
-    json.dump(creds_json, f)
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds_json, scope)
 
-gauth = GoogleAuth()
-gauth.LoadCredentialsFile("temp_gdrive_creds.json")
-if gauth.credentials is None:
-    gauth.LocalWebserverAuth()
-elif gauth.access_token_expired:
-    gauth.Refresh()
-else:
-    gauth.Authorize()
-
-drive = GoogleDrive(gauth)
-os.remove("temp_gdrive_creds.json")
+drive = GoogleDrive(credentials)
 
 DRIVE_ID = "16D6QN5nrtsmBy7rRtYQf46gpUiytWALu"
 
