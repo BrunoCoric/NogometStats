@@ -50,7 +50,7 @@ else:
                 st.write(goalscorer_counts)
 
             if "Assisters" in game_stats.columns:
-                if not game_stats["Assisters"]:
+                if not game_stats["Assisters"].any():
                     st.write("#### Assisters Count")
                     st.write("No assists recorded.")
                 else:
@@ -60,7 +60,7 @@ else:
                     st.write(assister_counts)
 
             if "Own Goalscorers" in game_stats.columns:
-                if not game_stats["Own Goalscorers"]:
+                if not game_stats["Own Goalscorers"].any():
                     st.write("#### Own Goalscorers Count")
                     st.write("No own goals scored.")
                 else:
