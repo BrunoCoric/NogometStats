@@ -4,16 +4,18 @@ from googleapiclient.http import MediaIoBaseDownload, MediaIoBaseUpload
 import pandas as pd
 import io
 import streamlit as st
+import json
 
 FOLDER_ID = "16D6QN5nrtsmBy7rRtYQf46gpUiytWALu"
 
 class GoogleDriveService:
     def __init__(self):
         # Load credentials from Streamlit secrets
+        credentials_dict = json.loads(st.secrets["GDRIVE_CREDENTIALS"])
         credentials = service_account.Credentials.from_service_account_info(
-            st.secrets["gcp_service_account"],
+            credentials_dict,
             scopes=['https://www.googleapis.com/auth/drive.file',
-                    'https://www.googleapis.com/auth/drive']
+                   'https://www.googleapis.com/auth/drive']
         )
         self.service = build('drive', 'v3', credentials=credentials)
 
