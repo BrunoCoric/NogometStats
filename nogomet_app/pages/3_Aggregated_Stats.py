@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+from nogomet_app.gdrive_setup import load_csv_from_drive, list_csvs_in_folder
 
 def parse_player_list(player_str):
     if isinstance(player_str, str):
@@ -8,13 +9,11 @@ def parse_player_list(player_str):
     return []
 
 # Helper function to load all game stats
-def load_all_game_stats(stats_folder):
+def load_all_game_stats():
     all_stats = []
-    for file in os.listdir(stats_folder):
-        if file.endswith(".csv"):
-            file_path = os.path.join(stats_folder, file)
-            game_stats = pd.read_csv(file_path)
-            all_stats.append(game_stats)
+    all_files = list_csvs_in_folder()
+    for file_title, file_id in all_files.items():
+        all_stats.append(load_csv_from_drive(file_id, file_title))
     if all_stats:
         return pd.concat(all_stats, ignore_index=True)
     else:
@@ -23,8 +22,7 @@ def load_all_game_stats(stats_folder):
 
 # Aggregate Data
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
-stats_folder = os.path.join(BASE_DIR, '..', 'stats')
-all_games = load_all_game_stats(stats_folder)
+all_games = load_all_game_stats()
 
 if all_games is None:
     st.title("Aggregate Stats Dashboard")

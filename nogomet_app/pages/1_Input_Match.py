@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 from datetime import datetime
+from nogomet_app.gdrive_setup import save_csv_to_drive
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
 STATS = os.path.join(BASE_DIR, '..', 'stats')
@@ -26,8 +27,7 @@ ALL_PLAYERS = [
 
 # Save Data
 def save_data(df):
-    path_to_save = df["Date"].iloc[0] + ".csv"
-    df.to_csv(STATS_PATH/path_to_save, index=False)
+    save_csv_to_drive(df, datetime.now().strftime("%Y-%m-%d"))
 
 
 # Streamlit App

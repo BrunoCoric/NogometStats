@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import os
-
+from nogomet_app.gdrive_setup import load_csv_from_drive, list_csvs_in_folder
 
 # Helper function to load game stats
-def load_game_stats(file_path):
+def load_game_stats(file_id, file_path):
     try:
-        return pd.read_csv(file_path)
+        return load_csv_from_drive(file_id, file_path)
     except Exception as e:
         st.error(f"Error loading file: {e}")
         return None
@@ -18,21 +18,20 @@ st.sidebar.header("Available Games")
 
 # List all CSV files in the stats folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
-stats_folder = os.path.join(BASE_DIR, '..', 'stats')
-game_files = [file for file in os.listdir(stats_folder) if file.endswith(".csv")]
+
+game_files = list_csvs_in_folder()
+name2idx = {v:k for k,v in game_files.items()}
 
 if not game_files:
     st.write("No games have been recorded yet. Please add match data first.")
 else:
     # Display all game files in the sidebar
-    selected_file = st.sidebar.selectbox("Select a game file", game_files)
+    selected_file = st.sidebar.selectbox("Select a game file", list(game_files.keys()))
 
     if selected_file:
         st.write(f"### Stats for Game: {selected_file.removesuffix('.csv')}")
 
-        # Load and display game stats
-        file_path = os.path.join(stats_folder, selected_file)
-        game_stats = load_game_stats(file_path)
+        game_stats = load_game_stats(name2idx[selected_file], selected_file)
 
         if game_stats is not None:
             st.write("### Team 1")
