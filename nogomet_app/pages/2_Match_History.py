@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path
 
 game_files = list_csvs_in_folder()
 name2idx = {v:k for k,v in game_files.items()}
+print(name2idx)
 
 if not game_files:
     st.write("No games have been recorded yet. Please add match data first.")
