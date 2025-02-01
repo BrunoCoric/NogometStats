@@ -4,9 +4,9 @@ import os
 from gdrive_setup import load_csv_from_drive, list_csvs_in_folder
 
 # Helper function to load game stats
-def load_game_stats(file_id, file_path):
+def load_game_stats(file_id):
     try:
-        return load_csv_from_drive(file_id, file_path)
+        return load_csv_from_drive(file_id)
     except Exception as e:
         st.error(f"Error loading file: {e}")
         return None
