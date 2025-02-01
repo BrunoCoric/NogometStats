@@ -13,7 +13,7 @@ def load_all_game_stats():
     all_stats = []
     all_files = list_csvs_in_folder()
     for file_title, file_id in all_files.items():
-        all_stats.append(load_csv_from_drive(file_id, file_title))
+        all_stats.append(load_csv_from_drive(file_id))
     if all_stats:
         return pd.concat(all_stats, ignore_index=True)
     else:

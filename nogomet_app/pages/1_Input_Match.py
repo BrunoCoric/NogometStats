@@ -60,14 +60,14 @@ if st.sidebar.button("Remove Goalscorer", disabled=len(st.session_state.goalscor
         st.session_state.score_2.append(-1)
 
 st.sidebar.subheader("Add Assisters")
-assister_select = st.sidebar.selectbox("Select an assister", ALL_PLAYERS)
+assister_select = st.sidebar.selectbox("Select an assister", [*team1, *team2])
 if st.sidebar.button("Add Assister"):
     st.session_state.assisters.append(assister_select)
 if st.sidebar.button("Remove Assister", disabled=len(st.session_state.assisters)==0):
     st.session_state.assisters.remove(assister_select)
 
 st.sidebar.subheader("Add Own Goalscorers")
-own_goal_select = st.sidebar.selectbox("Select an own goalscorer", ALL_PLAYERS)
+own_goal_select = st.sidebar.selectbox("Select an own goalscorer", [*team1, *team2])
 if st.sidebar.button("Add Own Goalscorer"):
     st.session_state.own_goals.append(own_goal_select)
     if own_goal_select in team1_set:
