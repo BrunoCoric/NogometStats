@@ -7,8 +7,7 @@ from gdrive_setup import save_csv_to_drive, load_file_from_drive
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
 STATS = os.path.join(BASE_DIR, '..', 'stats')
-ALL_PLAYERS = json.load(load_file_from_drive("1T0JDgWg4kFXYXO0xm5gR24AB8pFscqNl"))
-sorted(ALL_PLAYERS)
+ALL_PLAYERS = sorted(json.load(load_file_from_drive("1T0JDgWg4kFXYXO0xm5gR24AB8pFscqNl")))
 
 # Save Data
 def save_data(df, file_name: str):
