@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-from nogomet_app.gdrive_setup import load_csv_from_drive, list_csvs_in_folder
+from ..gdrive_setup import load_csv_from_drive, list_csvs_in_folder
 
 def parse_player_list(player_str):
     if isinstance(player_str, str):

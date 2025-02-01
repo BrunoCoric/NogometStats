@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 from datetime import datetime
-from nogomet_app.gdrive_setup import save_csv_to_drive
+from ..gdrive_setup import save_csv_to_drive
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
 STATS = os.path.join(BASE_DIR, '..', 'stats')

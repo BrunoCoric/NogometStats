@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-from nogomet_app.gdrive_setup import load_csv_from_drive, list_csvs_in_folder
+from ..gdrive_setup import load_csv_from_drive, list_csvs_in_folder
 
 # Helper function to load game stats
 def load_game_stats(file_id, file_path):
