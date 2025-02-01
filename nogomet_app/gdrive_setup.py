@@ -46,7 +46,7 @@ def list_csvs_in_folder():
     except Exception as e:
         raise Exception(f"Error listing CSV files: {str(e)}")
 
-def load_file_from_drive(df, file_id):
+def load_file_from_drive(file_id):
     try:
         drive_service = GoogleDriveService().service
 
