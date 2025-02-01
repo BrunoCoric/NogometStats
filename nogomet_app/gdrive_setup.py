@@ -6,6 +6,7 @@ import pandas as pd
 import os
 
 creds_json = json.loads(st.secrets["GDRIVE_CREDENTIALS"])
+print(creds_json)
 with open("temp_gdrive_creds.json", "w") as f:
     json.dump(creds_json, f)
 
