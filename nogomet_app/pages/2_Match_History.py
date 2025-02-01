@@ -50,13 +50,21 @@ else:
                 st.write(goalscorer_counts)
 
             if "Assisters" in game_stats.columns:
-                assisters = game_stats["Assisters"].iloc[0].split(", ")
-                assister_counts = pd.Series(assisters).value_counts()
-                st.write("#### Assisters Count")
-                st.write(assister_counts)
+                if not game_stats["Assisters"]:
+                    st.write("#### Assisters Count")
+                    st.write("No assists recorded.")
+                else:
+                    assisters = game_stats["Assisters"].iloc[0].split(", ")
+                    assister_counts = pd.Series(assisters).value_counts()
+                    st.write("#### Assisters Count")
+                    st.write(assister_counts)
 
             if "Own Goalscorers" in game_stats.columns:
-                own_goals = game_stats["Own Goalscorers"].iloc[0].split(", ")
-                own_goals_counts = pd.Series(own_goals).value_counts()
-                st.write("#### Own Goalscorers Count")
-                st.write(own_goals_counts)
+                if not game_stats["Own Goalscorers"]:
+                    st.write("#### Own Goalscorers Count")
+                    st.write("No own goals scored.")
+                else:
+                    own_goals = game_stats["Own Goalscorers"].iloc[0].split(", ")
+                    own_goals_counts = pd.Series(own_goals).value_counts()
+                    st.write("#### Own Goalscorers Count")
+                    st.write(own_goals_counts)
