@@ -1,38 +1,26 @@
 import streamlit as st
 import pandas as pd
 import os
+import json
 from datetime import datetime
-from gdrive_setup import save_csv_to_drive
+from gdrive_setup import save_csv_to_drive, load_file_from_drive
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
 STATS = os.path.join(BASE_DIR, '..', 'stats')
-ALL_PLAYERS = [
-    "Mladi Filip",
-    "Kinta",
-    "Fran",
-    "Dodo",
-    "Bruno",
-    "Tomica",
-    "Mislav",
-    "Dorian",
-    "Darko",
-    "Vid",
-    "Zovko",
-    "Žuja",
-    "Marko",
-    "Matko",
-    "Pirš",
-    "Leo"
-]
+ALL_PLAYERS = json.load(load_file_from_drive("1T0JDgWg4kFXYXO0xm5gR24AB8pFscqNl"))
+sorted(ALL_PLAYERS)
 
 # Save Data
-def save_data(df):
-    save_csv_to_drive(df, datetime.now().strftime("%Y-%m-%d"))
+def save_data(df, file_name: str):
+    save_csv_to_drive(df, file_name.removesuffix('.csv')+'.csv')
 
 
 # Streamlit App
 st.title("Match Data Input Dashboard")
 st.sidebar.header("Add Match Details")
+
+st.sidebar.subheader("Date")
+match_date = st.sidebar.date_input("Match Date", datetime.today())
 
 # Input form
 st.sidebar.subheader("Teams")
@@ -106,9 +94,10 @@ st.write(f"### Current Result: {sum(st.session_state.score_1)} - {sum(st.session
 
 # Add match button
 if st.sidebar.button("Add Match"):
+    formatted_match_date = match_date.strftime("%Y-%m-%d")
     # Prepare data
     match_data = pd.DataFrame({
-        "Date": [datetime.now().strftime("%Y-%m-%d")],
+        "Date": [formatted_match_date],
         "Team 1": [", ".join(team1)],
         "Team 2": [", ".join(team2)],
         "Goalscorers": [", ".join(st.session_state.goalscorers)],
@@ -118,5 +107,5 @@ if st.sidebar.button("Add Match"):
         "Score 2": [sum(st.session_state.score_2)]
     })
     # Save data
-    save_data(match_data)
+    save_data(match_data, formatted_match_date)
     st.sidebar.success(f"Data saved")

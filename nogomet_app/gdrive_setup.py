@@ -38,7 +38,7 @@ def list_csvs_in_folder():
         # Create dictionary of filename: file_id
         files_dict = {
             file['name']: file['id']
-            for file in results.get('files', [])
+            for file in results.get('files', []) if file['name'].endswith('.csv')
         }
 
         return files_dict
@@ -46,6 +46,25 @@ def list_csvs_in_folder():
     except Exception as e:
         raise Exception(f"Error listing CSV files: {str(e)}")
 
+def load_file_from_drive(df, file_id):
+    try:
+        drive_service = GoogleDriveService().service
+
+        # Get the file
+        request = drive_service.files().get_media(fileId=file_id)
+        file_handle = io.BytesIO()
+        downloader = MediaIoBaseDownload(file_handle, request)
+
+        done = False
+        while not done:
+            _, done = downloader.next_chunk()
+
+        # Reset the file handle position and read as DataFrame
+        file_handle.seek(0)
+        return file_handle
+
+    except Exception as e:
+        raise Exception(f"Error loading CSV file: {str(e)}")
 
 def load_csv_from_drive(file_id):
     """
@@ -70,6 +89,7 @@ def load_csv_from_drive(file_id):
 
     except Exception as e:
         raise Exception(f"Error loading CSV file: {str(e)}")
+
 
 
 def save_csv_to_drive(df, filename):
