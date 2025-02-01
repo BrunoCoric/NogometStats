@@ -19,7 +19,7 @@ st.sidebar.header("Available Games")
 # List all CSV files in the stats folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
 
-game_files = sorted(list_csvs_in_folder(), reverse=True)
+game_files = dict(sorted(list_csvs_in_folder().items(), reverse=True))
 
 
 if not game_files:
