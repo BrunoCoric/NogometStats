@@ -106,7 +106,7 @@ else:
 
     # Convert to a DataFrame for display
     winning_percentage_df = pd.DataFrame([
-        {"Player": player, "Winning Percentage": round(percent, 2)}
+        {"Player": player, "Winning Percentage": round(float(percent), 2)}
         for player, percent in winning_percentages.items()
     ])
     winning_percentage_df = winning_percentage_df.sort_values(by="Winning Percentage", ascending=False)
