@@ -3,7 +3,6 @@ from pydrive2.auth import GoogleAuth, ServiceAccountCredentials
 from pydrive2.drive import GoogleDrive
 import json
 import pandas as pd
-import os
 
 scope = ['https://www.googleapis.com/auth/drive']
 
