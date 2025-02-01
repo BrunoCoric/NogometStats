@@ -6,7 +6,7 @@ from gdrive_setup import load_csv_from_drive, list_csvs_in_folder
 # Helper function to load game stats
 def load_game_stats(file_id):
     try:
-        return sorted(load_csv_from_drive(file_id), reverse=True)
+        return load_csv_from_drive(file_id)
     except Exception as e:
         st.error(f"Error loading file: {e}")
         return None
@@ -19,7 +19,7 @@ st.sidebar.header("Available Games")
 # List all CSV files in the stats folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # This will give the path to the page file
 
-game_files = list_csvs_in_folder()
+game_files = sorted(list_csvs_in_folder(), reverse=True)
 
 
 if not game_files:
