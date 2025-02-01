@@ -31,7 +31,7 @@ else:
     if selected_file:
         st.write(f"### Stats for Game: {selected_file.removesuffix('.csv')}")
 
-        game_stats = load_game_stats(game_files[selected_file], selected_file)
+        game_stats = load_game_stats(game_files[selected_file])
 
         if game_stats is not None:
             st.write("### Team 1")
