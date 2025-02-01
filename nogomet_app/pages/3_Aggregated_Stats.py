@@ -109,7 +109,11 @@ else:
         {"Player": player, "Winning Percentage": round(float(percent), 2), "Total Games": player_total_games[player]}
         for player, percent in winning_percentages.items()
     ])
-    winning_percentage_df = winning_percentage_df.sort_values(by=["Winning Percentage", "Total Games"], ascending=False)
+    winning_percentage_df = winning_percentage_df.sort_values(
+        by=["Winning Percentage", "Total Games"], ascending=False
+    )
+
+    winning_percentage_df = winning_percentage_df.reset_index(drop=True)
 
     # Display the result
     st.write("### Players with the Best Winning Percentage")
